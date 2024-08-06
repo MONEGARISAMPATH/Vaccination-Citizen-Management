@@ -1,0 +1,15 @@
+package com.project2.VaccinationCenter.Cilents;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+
+import com.project2.CitizenService.Entity.Citizen;
+
+@FeignClient(name="CITIZENSERVICE")
+public interface CitizenCilent {
+	 @GetMapping("/getDataById/{id}") 
+	  Citizen getCitizen(Integer id);
+		 
+}

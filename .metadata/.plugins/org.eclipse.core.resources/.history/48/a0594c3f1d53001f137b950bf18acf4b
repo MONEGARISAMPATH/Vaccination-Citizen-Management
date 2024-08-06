@@ -1,0 +1,32 @@
+package com.project2.Response;
+
+import org.springframework.http.ResponseEntity;
+
+import com.project2.CitizenService.Entity.Citizen;
+
+public class CitizenResponse {
+	
+	    private ResponseEntity<Citizen> citizen;
+	    private String propertyValue;
+
+	    public CitizenResponse(ResponseEntity<Citizen> citizen, String propertyValue) {
+	        this.citizen = citizen;
+	        this.propertyValue = propertyValue;
+	    }
+
+	    public ResponseEntity<Citizen> getCitizen() {
+	        return citizen;
+	    }
+
+	    public void setCitizen(ResponseEntity<Citizen> citizen) {
+	        this.citizen = citizen;
+	    }
+
+	    public String getPropertyValue() {
+	        return propertyValue;
+	    }
+
+	    public void setPropertyValue(String propertyValue) {
+	        this.propertyValue = propertyValue;
+	    }
+	}

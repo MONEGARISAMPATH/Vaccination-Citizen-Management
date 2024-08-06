@@ -1,0 +1,44 @@
+package com.project2.CitizenService.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+//import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.project2.CitizenService.Entity.Citizen;
+import com.project2.CitizenService.Repository.CitizenRepository;
+
+
+
+@Service
+
+public class Service1 {
+	@Autowired
+	CitizenRepository citizenrepo;
+   public ResponseEntity<Citizen> getById(Integer id){
+		//case1
+	 Citizen citi=citizenrepo.findByVacitinationCenterId(id); 
+		 return new ResponseEntity<Citizen>(citi,HttpStatus.OK);
+   }
+		//case2 
+	/*List<Citizen> cit=citizenrepo.findAll();
+Citizen value=null;
+	for(Citizen ci:cit) {
+	 if(ci.getVacitinationCenterId().equalsIgnoreCase(id));
+	value=ci;
+	}
+		return new ResponseEntity<List<Citizen>>(cit,HttpStatus.CREATED);
+		 }
+   }*/
+	
+	  public ResponseEntity<Citizen> addCitizen(Citizen citizen){ 
+		Citizen listcitizen=  citizenrepo.save(citizen);  
+	 return  new ResponseEntity<>(listcitizen,HttpStatus.ACCEPTED); 
+	  }	  
+	  
+}	  
+	  
+	 

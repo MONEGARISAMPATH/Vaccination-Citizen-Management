@@ -1,0 +1,48 @@
+package com.project2.VaccinationCenter.Service;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.project2.CitizenService.Entity.Citizen;
+import com.project2.VaccinationCenter.Entity.VaccinationCenter;
+import com.project2.VaccinationCenter.Model.Response;
+import com.project2.VaccinationCenter.Repository.VaccinationCenterRepository;
+
+@Service
+public class VaccinationCenterService {
+	@Autowired
+	RestTemplate restTemplate;
+	@Autowired
+	VaccinationCenterRepository vaccinationRepo;
+	
+	public ResponseEntity<VaccinationCenter> addVaccinationCenterDetails(VaccinationCenter vaccination){
+		VaccinationCenter list=vaccinationRepo.save(vaccination);
+		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+
+	
+	  public ResponseEntity<Response> getAllDataById(Integer id){ 
+		  //vaccinationCenter
+	   Response res=new Response(); 
+	  VaccinationCenter data=vaccinationRepo.findById(id).get(); 
+	  res.setCenter(data);
+	  
+	  //for citizen clas to map we need RestTemplate List<Citizen>
+	 Citizen listofCitizens=restTemplate.getForObject("http://localhost:8081/Citizen/"+id,
+	  List.class); res.setCitizen(listofCitizens); return new
+	  ResponseEntity<>(res,HttpStatus.ACCEPTED);
+	  }
+	 
+	
+	public void deleteById(int id){
+		//VaccinationCenter delete=
+			 vaccinationRepo.deleteById(id);
+			 System.out.println("delted");	
+	}
+
+}

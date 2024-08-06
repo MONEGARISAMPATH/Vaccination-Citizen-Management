@@ -1,0 +1,30 @@
+package com.project2.Response;
+
+import com.project2.CitizenService.Entity.Citizen;
+
+public class CitizenResponse {
+	
+	    private Citizen citizen;
+	    private String propertyValue;
+
+	    public CitizenResponse(Citizen citizen, String propertyValue) {
+	        this.citizen = citizen;
+	        this.propertyValue = propertyValue;
+	    }
+
+	    public Citizen getCitizen() {
+	        return citizen;
+	    }
+
+	    public void setCitizen(Citizen citizen) {
+	        this.citizen = citizen;
+	    }
+
+	    public String getPropertyValue() {
+	        return propertyValue;
+	    }
+
+	    public void setPropertyValue(String propertyValue) {
+	        this.propertyValue = propertyValue;
+	    }
+	}

@@ -1,0 +1,61 @@
+package com.project2.VaccinationCenter.Controllers;
+
+
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
+import com.project2.CitizenService.Entity.Citizen;
+import com.project2.VaccinationCenter.Entity.VaccinationCenter;
+import com.project2.VaccinationCenter.Model.Response;
+import com.project2.VaccinationCenter.Repository.VaccinationCenterRepository;
+import com.project2.VaccinationCenter.Service.VaccinationCenterService;
+
+@RestController
+@RequestMapping("/VaccinationCenter")
+public class VaccinationCenterContoller {
+	@Autowired
+	VaccinationCenterRepository vaccinationRepo;
+	@Autowired
+	VaccinationCenterService vaccinationservice;
+	@PostMapping("/addVaccinationDetails")
+	public ResponseEntity<VaccinationCenter> addVaccinationCenterDetails(@RequestBody VaccinationCenter vaccination){
+		return vaccinationservice.addVaccinationCenterDetails(vaccination);
+	
+	}
+
+	/*
+	 * @GetMapping("/getDataById/{id}") public ResponseEntity<Response>
+	 * getAllDataById(@PathVariable int id){ return
+	 * vaccinationservice.getAllDataById(id);
+	 * 
+	 * }
+	 */
+	@GetMapping("/getDataById/{id}")
+	public ResponseEntity<Response> getAllDataById(@PathVariable Integer id){
+		//vaccinationCenter details
+		Response res=new Response();
+		VaccinationCenter data=vaccinationRepo.findById(id).get();
+		res.setCenter(data);
+		
+		//for citizen clas to map we need RestTemplate
+		Citizen listofCitizens=restTemplate.getForObject("http://CITIZENSERVICE/Citizen/"+id, Citizen.class);
+		res.setCitizen(listofCitizens);
+		return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
+	}
+     @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable int id){
+	vaccinationservice.deleteById(id);
+	System.out.println("deleted sucessfuuly");
+	
+}
+
+}
