@@ -46,5 +46,9 @@ public class Service1 {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+	public void deleteById(int id) {
+		citizenrepo.deleteById(id);
+
+	}
 
 }

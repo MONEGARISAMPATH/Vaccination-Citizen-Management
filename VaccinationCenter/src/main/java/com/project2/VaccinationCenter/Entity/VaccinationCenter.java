@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 @Entity
 public class VaccinationCenter {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	private int id;
 	@Column
 	private String centerName;

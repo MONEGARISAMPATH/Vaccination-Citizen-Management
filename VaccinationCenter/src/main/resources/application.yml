@@ -28,7 +28,7 @@ spring:
 resilience4j:
   circuitbreaker:
     instances:
-      companyBreaker:
+      CitizenBreaker:
         register-health-indicator: true
         sliding-window-size: 10
         minimum-number-of-calls: 5
@@ -36,8 +36,21 @@ resilience4j:
         wait-duration-in-open-state: 10s
         failure-rate-threshold: 50
         automatic-transition-from-open-to-half-open-enabled: true
-       # sliding-window-type: time  # Use 'count' or 'time'
-
+        sliding-window-type: COUNT_BASED  # Use 'count' or 'time'
+ #Retry
+  retry:
+   instances:
+    CitizenBreaker:
+       max-attempts: 5
+       wait-duration: 2s
+#Rate Limiter
+  ratelimiter:
+    instances:
+     CitizenBreaker:
+       timeout-duration: 0
+       limit-refresh-period: 4
+       limit-for-period: 2
+    
 # Actuator
 management:
   endpoints:
